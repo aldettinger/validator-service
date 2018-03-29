@@ -1,0 +1,12 @@
+{
+  "customerId": "aldettinger",
+  "products":
+   [
+   {
+    "productId": "Wine"
+   },
+   {
+    "productId": "Beer"
+   }
+   ]
+}
