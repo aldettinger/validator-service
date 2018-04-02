@@ -1,13 +1,13 @@
-The validator service is a simple example of a camel route exposing a REST service consuming json orders.  
-One could POST an order, and the service will validate that the customer exist, and that products are available.
+The validator service is a simple example bringing together the [Apache Camel REST DSL](https://github.com/apache/camel/blob/master/camel-core/src/main/docs/rest-dsl.adoc), [Jackson](https://github.com/FasterXML/jackson-core) and [Spring Boot](https://projects.spring.io/spring-boot/).  
+One could POST a JSON order, the service will validate that the customer exist and that products are available.
 
-# HOW SHOULD I RUN THIS
+# How Could I Run This ?
 get this repository  
 cd "path to project"  
 mvn clean install  
 java -jar target/rest-dsl-spring-boot-xstream-example-0.0.1-SNAPSHOT.jar  
 
-Then launch a REST client (why not postman)  
+Then launch a REST client (why not postman ?)  
 Set the HTTP method to "POST"  
 Set the url to "http://localhost:8080/camel/order/validation"  
 Set the raw content to:  
