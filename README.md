@@ -5,7 +5,7 @@ One could POST a JSON order, the service will validate that the customer exist a
 get this repository  
 cd "path to project"  
 mvn clean install  
-java -jar target/rest-dsl-spring-boot-xstream-example-0.0.1-SNAPSHOT.jar  
+java -jar target/validator-service-*.jar  
 
 Then launch a REST client (why not postman ?)  
 Set the HTTP method to "POST"  
