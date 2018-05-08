@@ -12,6 +12,21 @@ java -jar target/validator-service-*.jar
 cd validator-service/src/test/resources/json-orders  
 cat ok.json  
 curl -X POST -d @ok.json http://localhost:8080/camel/order/validation --header 'Content-Type: application/json'  
-  
+
 You can now experiment what happen in other scenarios, for instance:  
 curl -X POST -d @out-of-stock.json http://localhost:8080/camel/order/validation --header 'Content-Type: application/json'  
+
+# How Could I Invoke The Validator Service on minishift ?
+Install the [kvm driver](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm-driver)  
+Install [gofabric8](https://fabric8.io/guide/getStarted/gofabric8.html)  
+gofabric8 start --minishift  
+oc login  
+
+cd validator-service  
+mvn clean install fabric8:deploy -Dfabric8.deploy.createExternalUrls=true  
+
+cd src/test/resources/json-orders/  
+HOSTNAME=$(oc get route validator-service -o jsonpath={.spec.host})  
+IP=$(echo "$HOSTNAME" | sed -E "s/validator-service-myproject\.(.*)\.nip\.io/\1/g")  
+URL="http://${HOSTNAME}/camel/order/validation"  
+curl -X POST "${URL}" --header 'Content-Type:application/json' --resolve "${HOSTNAME}:80:${IP}" -d '@ok.json'  
