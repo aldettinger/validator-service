@@ -3,9 +3,8 @@ package org.aldettinger.camel.example;
 import java.io.File;
 import java.util.List;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
-import org.apache.camel.test.junit4.CamelTestSupport;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.test.spring.CamelSpringBootRunner;
 import org.apache.camel.test.spring.DisableJmx;
 import org.junit.Assert;
@@ -24,15 +23,10 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @DisableJmx(true)
-public class OrderValidatorRouteBuilderTest extends CamelTestSupport {
+public class OrderValidatorRouteBuilderTest {
 
     @Autowired
-    private CamelContext camelContext;
-
-    @Override
-    protected CamelContext createCamelContext() throws Exception {
-        return camelContext;
-    }
+    private ProducerTemplate template;
 
     private static File toTestFile(String name) {
         return new File("src/test/resources/json-orders/", name);

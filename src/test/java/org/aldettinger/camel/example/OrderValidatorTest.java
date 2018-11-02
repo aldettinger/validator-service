@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
-@RunWith(org.mockito.runners.MockitoJUnitRunner.class)
+@RunWith(org.mockito.junit.MockitoJUnitRunner.class)
 public class OrderValidatorTest {
 
     @Mock
@@ -19,7 +19,7 @@ public class OrderValidatorTest {
     @Mock
     Product mockProduct;
 
-    private OrderValidator ov;
+    private OrderValidator orderValidator;
 
     @Before
     public void setup() {
@@ -30,12 +30,12 @@ public class OrderValidatorTest {
         when(mockOrder.getCustomerId()).thenReturn("aldettinger");
         when(mockOrder.getProducts()).thenReturn(products);
 
-        ov = new OrderValidator();
+        orderValidator = new OrderValidator();
     }
 
     @Test
     public void validOrderShouldSetOkStatus() {
-        ov.validate(mockOrder);
+        orderValidator.validate(mockOrder);
         verify(mockOrder).setStatus("OK");
         verify(mockProduct).setStatus("OK");
     }
@@ -44,7 +44,7 @@ public class OrderValidatorTest {
     public void unknownCustomerShouldSetErrorStatus() {
         when(mockOrder.getCustomerId()).thenReturn("unknown customer");
 
-        ov.validate(mockOrder);
+        orderValidator.validate(mockOrder);
         verify(mockOrder).setStatus("The customer is not identified");
         verify(mockProduct).setStatus("OK");
     }
@@ -53,7 +53,7 @@ public class OrderValidatorTest {
     public void outOfStockShouldSetErrorStatus() {
         when(mockProduct.getProductId()).thenReturn("unknown product");
 
-        ov.validate(mockOrder);
+        orderValidator.validate(mockOrder);
         verify(mockOrder).setStatus("OK");
         verify(mockProduct).setStatus("This product does not exist");
     }
